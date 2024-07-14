@@ -1,8 +1,7 @@
 #! /bin/bash
 
 #Variables
-snapListEmpty=false
-userInput=""
+confirm=""
 
 printf "Welcome to rm-snap-ubuntu24 by Gerardo Barcenas (ver 0.1)"
 printf "This script will attempt toremove the following: \nfirefox \nthunderbird \ngtk-common-themes \ngnome-42-2204 \nsnapd-desktop-integration \nsnap-store \nfirmware-updater \nbare \ncore22 \nsnapd \n\n"
@@ -16,6 +15,18 @@ sudo snap remove core22
 
 sudo snap remove snapd
 
+confirm=""
+
+# shellcheck disable=SC2086
+while [[ $confirm == [gG] || $confirm == [gG][oO] ]]
+do
+    echo "These are all the Snap Packages you still have installed:"
+    snap list
+    
+    # shellcheck disable=SC2162
+    read -p "Enter the name of any remaining Snap app or type Go: " confirm && [[ $confirm == [gG] || $confirm == [gG][oO] ]] || sudo snap remove $confirm
+done
+
 sudo systemctl stop snapd
 
 sudo systemctl disable snapd
@@ -26,19 +37,18 @@ sudo apt purge snapd -y
 
 sudo apt-mark hold snapd
 
-# shellcheck disable=SC2086
-while [[ $snapListEmpty = true || $userInput = "exit" ]]
-do
-    echo "These are all the Snap Packages you still have installed:"
-    snap list
-    
-    snapListEmpty=true
-done
+sudo rm -rf ~/snap
 
+sudo rm -rf /snap
 
+sudo rm -rf /var/snap
 
-if [ $snapListEmpty = false ]
-then
-    echo "this works!"
-fi
+sudo rm -rf /var/lib/snapd
 
+sudo tee -a nosnap.pref > /etc/apt/preferences.d <<EOT
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOT
+
+sudo apt update

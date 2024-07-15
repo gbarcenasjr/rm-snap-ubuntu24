@@ -49,6 +49,8 @@ Pin: release a=*
 Pin-Priority: -10
 EOT
 
+sudo apt install --install-suggests gnome-software
+
 sudo apt update
 
 echo "SNAP REMOVAL PROGRAM COMPLETED!"

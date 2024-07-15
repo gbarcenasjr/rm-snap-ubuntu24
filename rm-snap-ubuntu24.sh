@@ -1,10 +1,22 @@
 #! /bin/bash
 
+# rm-snap-ubuntu24.sh  Copyright (C) 2024 Gerardo Barcenas
+# This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+
+
+
 #Variables
 confirm=""
 
-printf "Welcome to rm-snap-ubuntu24 by Gerardo Barcenas (ver 1.0)"
-printf "This script will attempt toremove the following: \nfirefox \nthunderbird \ngtk-common-themes \ngnome-42-2204 \nsnapd-desktop-integration \nsnap-store \nfirmware-updater \nbare \ncore22 \nsnapd \n\n"
+printf "rm-snap-ubuntu24.sh Copyright (C) 2024 Gerardo Barcenas \n"
+printf "This program comes with ABSOLUTELY NO WARRANTY. \n"
+printf "This is free software, and you are welcome to redistribute it \n"
+printf "under certain conditions. \n\n"
+
+printf "Welcome to rm-snap-ubuntu24 by Gerardo Barcenas (ver 1.1) \n"
+printf "This script will attempt to remove the following: \nfirefox \nthunderbird \ngtk-common-themes \ngnome-42-2204 \nsnapd-desktop-integration \nsnap-store \nfirmware-updater \nbare \ncore22 \nsnapd \n\n"
 
 # shellcheck disable=SC2162
 read -p "Do you want to continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
@@ -43,7 +55,8 @@ sudo rm -rf /snap
 sudo rm -rf /var/snap
 sudo rm -rf /var/lib/snapd
 
-sudo tee -a nosnap.pref > /etc/apt/preferences.d <<EOT
+# TODO: Fix so it can write the file to the directory!!!
+sudo tee -a nosnap.pref > /etc/apt/preferences.d/ <<EOT
 Package: snapd
 Pin: release a=*
 Pin-Priority: -10

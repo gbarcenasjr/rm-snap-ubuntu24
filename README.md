@@ -1,4 +1,4 @@
-# rm-snap-ubuntu24.sh Project Script ver. 0.1
+# rm-snap-ubuntu24.sh Project Script ver. 1.1
 
 ## Remove Snap from Ubuntu for good
 

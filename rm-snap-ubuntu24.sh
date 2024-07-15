@@ -41,6 +41,7 @@ do
     snap list
     
     # shellcheck disable=SC2162
+    # shellcheck disable=SC2015
     read -p "Enter the name of any remaining Snap app or type Go: " confirm && [[ $confirm == [gG] || $confirm == [gG][oO] ]] || sudo snap remove $confirm
 done
 
@@ -56,6 +57,7 @@ sudo rm -rf /var/snap
 sudo rm -rf /var/lib/snapd
 
 # TODO: Fix so it can write the file to the directory!!!
+# shellcheck disable=SC2024
 sudo tee -a nosnap.pref > /etc/apt/preferences.d/ <<EOT
 Package: snapd
 Pin: release a=*
@@ -67,6 +69,7 @@ sudo apt install --install-suggests gnome-software
 sudo apt update
 
 echo "SNAP REMOVAL PROGRAM COMPLETED!"
+# shellcheck disable=SC2162
 read -p "(Optional) Would you like to install the Brave Browser (Deb Package)? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
 # CLI instructions straight from the Brave Browser Install Linux site (https://brave.com/linux/)
